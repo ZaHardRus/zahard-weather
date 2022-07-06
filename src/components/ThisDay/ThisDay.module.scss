@@ -1,0 +1,56 @@
+@import '../../styles/variables';
+.thisDay {
+  background-color: var(--content-background-default);
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow:  $card-shadow;
+  .topInfo {
+    display: flex;
+    gap: 60px;
+    .leftSide {
+      .temperature {
+        font-weight: 500;
+        font-size: 76px;
+        line-height: 117px;
+        color: $primary-color;
+      }
+
+      .day {
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 49px;
+        color:var(--color-default);
+      }
+    }
+
+    .image {
+      svg {
+        width: 119px;
+        height: 119px;
+      }
+    }
+  }
+
+  .bottomInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .time {
+      font-weight: 400;
+      font-size: 25px;
+      line-height: 30px;
+      color: $second-color;
+    }
+
+    .city {
+      font-weight: 400;
+      font-size: 25px;
+      line-height: 30px;
+      color: $second-color;
+    }
+  }
+}

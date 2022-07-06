@@ -1,0 +1,33 @@
+@import '../../styles/variables';
+.popup{
+  &_overlay{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(#000,.25);
+  }
+  &_content{
+    padding: 48px;
+    border-radius: 12px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: $light-background;
+    display: flex;
+    gap: 36px;
+    width: 70%;
+  }
+  .close{
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    svg{
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

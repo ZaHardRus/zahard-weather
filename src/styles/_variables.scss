@@ -1,0 +1,32 @@
+$primary-color:#4793ff;
+$second-color:#939cb0;
+
+$light-background_body:#fff;
+$light-background_content:#fff;
+$light-background_card:rgba(71, 147, 255, 0.2);
+$light-color:#000;
+
+$dark-background_body:#000;
+$dark-background_content:#4F4F4F;
+$dark-background_card:#2E3035;
+$dark-color:#fff;
+
+$card-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.45);
+
+:root{
+  --body-background-dark:#{$dark-background_body};
+  --body-background-light:#{$light-background_body};
+  --body-background-default:var(#{--body-background-light});
+
+  --content-background-dark:#{$dark-background_content};
+  --content-background-light:#{$light-background_content};
+  --content-background-default:var(#{--content-background-light});
+
+  --card-background-dark:#{$dark-background_card};
+  --card-background-light:#{$light-background_card};
+  --card-background-default:var(#{--card-background-light});
+
+  --color-dark:#{$dark-color};
+  --color-light:#{$light-color};
+  --color-default:var(#{--color-light});
+}

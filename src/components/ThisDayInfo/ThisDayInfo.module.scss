@@ -1,0 +1,53 @@
+@import '../../styles/variables';
+
+.thisDayInfo {
+  background-color: var(--content-background-default);
+  position: relative;
+  box-shadow: $card-shadow;
+  padding: 40px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 2;
+  border-radius: 20px;
+
+  .info__item {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    z-index: 1;
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      box-shadow: $card-shadow;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      svg{
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    .title {
+      flex: 2;
+      font-size: 14px;
+      line-height: 17px;
+      color:$second-color;
+    }
+
+    .description {
+      flex: 8;
+      color:var(--color-default)
+    }
+  }
+
+  .image{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+}

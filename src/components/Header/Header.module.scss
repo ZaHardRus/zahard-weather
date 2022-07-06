@@ -1,0 +1,25 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  .halfWrapper{
+    display: flex;
+    align-items: center;
+    gap:20px;
+    .logo{
+      svg{
+        width: 65px;
+        height: 65px;
+      }
+    }
+    .title{
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 25px;
+      cursor: pointer;
+      color:#4793FF;
+    }
+    .changeTheme{
+      cursor: pointer;
+    }
+  }
+}
