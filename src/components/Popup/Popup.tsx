@@ -12,7 +12,7 @@ export const Popup = () => {
                     <ThisDay/>
                     <ThisDayInfo image={false}/>
                     <div className={style.close}>
-                        <GlobalSvgSelector id={'close'}/>
+                        <GlobalSvgSelector width={50} height={50} id={'close'}/>
                     </div>
                 </div>
             </div>

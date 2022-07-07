@@ -22,4 +22,14 @@
       cursor: pointer;
     }
   }
+  .select{
+    position: relative;
+    &_input{}
+    &_dropdown{
+      z-index: 2;
+      width: 100%;
+      background-color: red;
+      position: absolute;
+    }
+  }
 }

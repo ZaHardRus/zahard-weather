@@ -2,38 +2,41 @@ import React, {FC} from "react";
 import style from './ThisDayInfo.module.scss'
 import {ThisDayInfoItem} from "./ThisDayInfoItem";
 import cloud from '../../assets/images/bg-cloud.png'
+import {useAppSelector} from "../../store";
 
-interface ThisDayInfoProps{
-    image:boolean
+interface ThisDayInfoProps {
+    image: boolean
 }
-export const ThisDayInfo:FC<ThisDayInfoProps> = ({image=true}) => {
+
+export const ThisDayInfo: FC<ThisDayInfoProps> = ({image = true}) => {
+    const current = useAppSelector(state => state.weather.current)
+    const description = current && current.weather ? current?.weather[0].description : ''
     const items = [
         {
             'icon-id': 'temperature',
             name: "Температура",
-            value: '20° - ощущается как 17°'
+            value: `${current.temp}° - ощущается как ${current.feels_like}°`
         },
         {
             'icon-id': 'pressure',
             name: "Давление",
-            value: '765 мм ртутного столба - нормальное°'
+            value: `${current.pressure} мБар`
         },
         {
             'icon-id': 'precipitation',
             name: "Осадки",
-            value: 'Без осадков°'
+            value: `влажность : ${current.humidity}%,   ${description}`
         },
         {
             'icon-id': 'wind',
             name: "Ветер",
-            value: '3 м/с юго-запад - легкий ветер'
+            value: `${current.wind_speed} м/с`
         }
     ]
-    console.log(image)
     return (
         <div className={style.thisDayInfo}>
             {
-                items.map(el => <ThisDayInfoItem item={el}/>)
+                items.map(el => <React.Fragment key={el.name}><ThisDayInfoItem item={el}/></React.Fragment>)
             }
             {image && <div className={style.image}>
                 <img src={cloud} alt=""/>

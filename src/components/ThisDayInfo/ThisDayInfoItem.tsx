@@ -14,7 +14,7 @@ interface ThisDayInfoItemProps {
 export const ThisDayInfoItem: React.FC<ThisDayInfoItemProps> = ({item}) => {
     return (
         <div className={style.info__item}>
-            <div className={style.icon}><GlobalSvgSelector id={item["icon-id"]}/></div>
+            <div className={style.icon}><GlobalSvgSelector width={50} height={50} id={item["icon-id"]}/></div>
             <div className={style.title}>{item.name}</div>
             <div className={style.description}>{item.value}</div>
         </div>

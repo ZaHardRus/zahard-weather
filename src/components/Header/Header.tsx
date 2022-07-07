@@ -1,53 +1,66 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import style from './Header.module.scss'
 import {GlobalSvgSelector} from "../GlobalSvgSelector/GlobalSvgSelector";
-import Select, {StylesConfig} from 'react-select'
 import {ThemeContext} from "../../context/ThemeContext";
 import {useTheme} from "../../hooks/useTheme";
+import {LocationService} from "../../services/location";
+import {useAppDispatch, useAppSelector} from "../../store";
+import {fetchWeatherThunk} from "../../store/ducks/weather/thunk";
 
 export const Header = () => {
+    const {location} = useAppSelector(state => state.weather)
+    const [locationName, setLocationName] = useState('')
+    const [options, setOptions] = useState([])
+    const [dropdownVisible, setDropdownVisible] = useState(false)
+    const dispatch = useAppDispatch()
+    console.log(location)
     const {theme, changeTheme} = useContext(ThemeContext);
     useTheme(theme);
-
     const changeThemeHandler = () => {
         changeTheme(theme === "light" ? "dark" : "light")
     }
 
-    const selectOptions = [
-        {value: 'chocolate', label: 'Chocolate'},
-        {value: 'strawberry', label: 'Strawberry'},
-        {value: 'vanilla', label: 'Vanilla'}
-    ]
-    const colourStyles: StylesConfig = {
-        control: (styles) => (
-            {
-                ...styles,
-                backgroundColor: theme === "light" ? 'rgba(71,147,255,.2)' : "#4F4F4F",
-                color: '#000',
-                width: 200,
-                height: 40,
-                border: 'none',
-                borderRadius: 10,
-                zIndex: 100
-            }
-        ),
-        placeholder: (styles) => ({
-            ...styles,
-            color: theme === "dark" ? "#fff" : ''
-        }),
+
+    const searchLocationHandler = async () => {
+        const response = await LocationService.fetchLocationByName(locationName)
+        if (response) {
+            setOptions(response)
+        } else {
+            setOptions([])
+        }
+        setDropdownVisible(true)
     }
+    const chooseLocationHandler = (location: any) => {
+        dispatch(fetchWeatherThunk(location))
+    }
+    useEffect(()=>{
+        dispatch(fetchWeatherThunk(location))
+    },[location])
 
     return (
         <div className={style.header}>
             <div className={style.halfWrapper}>
-                <div className={style.logo}><GlobalSvgSelector id={'header-logo'}/></div>
+                <div className={style.logo}><GlobalSvgSelector width={120} height={120} id={'header-logo'}/></div>
                 <div className={style.title}>React weather</div>
             </div>
             <div className={style.halfWrapper}>
-                <div onClick={changeThemeHandler} className={style.changeTheme}><GlobalSvgSelector id={'theme'}/></div>
-                <Select options={selectOptions} styles={colourStyles}/>
+                <div onClick={changeThemeHandler} className={style.changeTheme}><GlobalSvgSelector width={120}
+                                                                                                   height={120}
+                                                                                                   id={'theme'}/></div>
+                <div className={style.select}>
+                    <input className={style.select_input} value={locationName}
+                           onChange={(e) => setLocationName(e.target.value)}/>
+                    {dropdownVisible && <ul className={style.select_dropdown}>
+                        {options.map((el: any) =>
+                            <li onClick={() => chooseLocationHandler(el)}>
+                                <div>{el.name} </div>
+                                <div>{el.state}</div>
+                            </li>)}
+                        <li onClick={() => setDropdownVisible(false)}>Закрыть</li>
+                    </ul>}
+                </div>
+                <button onClick={searchLocationHandler}>search</button>
             </div>
-
         </div>
     )
 }
