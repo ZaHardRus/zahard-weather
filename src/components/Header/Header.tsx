@@ -13,7 +13,7 @@ export const Header = () => {
     const [options, setOptions] = useState([])
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const dispatch = useAppDispatch()
-    console.log(location)
+
     const {theme, changeTheme} = useContext(ThemeContext);
     useTheme(theme);
     const changeThemeHandler = () => {
@@ -48,7 +48,7 @@ export const Header = () => {
                                                                                                    height={120}
                                                                                                    id={'theme'}/></div>
                 <div className={style.select}>
-                    <input className={style.select_input} value={locationName}
+                    <input placeholder={'Введите название города'} className={style.select_input} value={locationName}
                            onChange={(e) => setLocationName(e.target.value)}/>
                     {dropdownVisible && <ul className={style.select_dropdown}>
                         {options.map((el: any) =>
@@ -56,10 +56,12 @@ export const Header = () => {
                                 <div>{el.name} </div>
                                 <div>{el.state}</div>
                             </li>)}
-                        <li onClick={() => setDropdownVisible(false)}>Закрыть</li>
+                        <li onClick={() => setDropdownVisible(false)}><span>Закрыть</span></li>
                     </ul>}
                 </div>
-                <button onClick={searchLocationHandler}>search</button>
+                <div onClick={searchLocationHandler}>
+                    <GlobalSvgSelector id={'search'} width={40} height={40}/>
+                </div>
             </div>
         </div>
     )

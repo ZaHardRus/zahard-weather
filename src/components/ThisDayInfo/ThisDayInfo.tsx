@@ -3,34 +3,37 @@ import style from './ThisDayInfo.module.scss'
 import {ThisDayInfoItem} from "./ThisDayInfoItem";
 import cloud from '../../assets/images/bg-cloud.png'
 import {useAppSelector} from "../../store";
+import {weatherDaily} from "../../store/ducks/weather/slice";
 
 interface ThisDayInfoProps {
     image: boolean
+    dailyData:weatherDaily | null
 }
 
-export const ThisDayInfo: FC<ThisDayInfoProps> = ({image = true}) => {
+export const ThisDayInfo: FC<ThisDayInfoProps> = ({dailyData,image = true}) => {
     const current = useAppSelector(state => state.weather.current)
     const description = current && current.weather ? current?.weather[0].description : ''
+
     const items = [
         {
             'icon-id': 'temperature',
             name: "Температура",
-            value: `${current.temp}° - ощущается как ${current.feels_like}°`
+            value: `${dailyData?.temp.eve || current.temp}° - ощущается как ${dailyData?.feels_like.eve || current.feels_like}°`
         },
         {
             'icon-id': 'pressure',
             name: "Давление",
-            value: `${current.pressure} мБар`
+            value: `${dailyData?.pressure ||current.pressure} мБар`
         },
         {
             'icon-id': 'precipitation',
             name: "Осадки",
-            value: `влажность : ${current.humidity}%,   ${description}`
+            value: `влажность : ${dailyData?.humidity || current.humidity}%,   ${dailyData?.weather[0].description ||description}`
         },
         {
             'icon-id': 'wind',
             name: "Ветер",
-            value: `${current.wind_speed} м/с`
+            value: `${dailyData?.wind_speed || current.wind_speed} м/с`
         }
     ]
     return (

@@ -1,12 +1,13 @@
 @import '../../styles/variables';
 .popup{
+  z-index: 1000;
   &_overlay{
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(#000,.25);
+    background-color: rgba(#000,.65);
   }
   &_content{
     padding: 48px;
@@ -15,7 +16,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    background-color: $light-background;
+    background-color: var(--content-background-default);
     display: flex;
     gap: 36px;
     width: 70%;

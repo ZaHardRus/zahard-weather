@@ -8,16 +8,18 @@ import broken_clouds from '../../assets/images/broken_clouds.png'
 import shower_rain from '../../assets/images/shower_rain.png'
 import snow from '../../assets/images/snow.png'
 import rain from '../../assets/images/rain.png'
+import search from '../../assets/images/search.png'
 
 
 
-interface GlobalSvgSelectorProps {
+
+interface GlobalSvgSelectorProps{
     id: string
     width:number
     height:number
 }
 
-export const GlobalSvgSelector: React.FC<GlobalSvgSelectorProps> = ({id,width,height}) => {
+export const GlobalSvgSelector: React.FC<GlobalSvgSelectorProps> = ({id,width,height,...props}) => {
     switch (id) {
         case 'header-logo':
             return <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,6 +54,8 @@ export const GlobalSvgSelector: React.FC<GlobalSvgSelectorProps> = ({id,width,he
                     d="M17.6667 7.09792V27.7917C12.8396 27.7917 8.91667 23.9562 8.91667 19.2312C8.91667 16.9562 9.82083 14.8125 11.4687 13.1937L17.6667 7.09792ZM17.6667 3L9.42708 11.1083C7.3125 13.1937 6 16.0667 6 19.2312C6 25.575 11.2208 30.7083 17.6667 30.7083C24.1125 30.7083 29.3333 25.575 29.3333 19.2312C29.3333 16.0667 28.0208 13.1937 25.9062 11.1083L17.6667 3Z"
                     fill="#4793FF"/>
             </svg>
+        case 'search':
+            return <img src={search} width={width} height={height} alt=""/>
 
         //clear sky
         case '01d':
