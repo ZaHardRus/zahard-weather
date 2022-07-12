@@ -81,13 +81,15 @@
         color: $second-color;
       }
       .info{
+        &:first-letter{
+          text-transform: uppercase;
+        }
         margin-top: 8px;
-        font-weight: 700;
+        font-weight: 500;
         font-size: 13px;
         line-height: 16px;
         color:$primary-color;
       }
-
     }
   }
 }

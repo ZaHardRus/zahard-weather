@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import style from './Header.module.scss'
 import {GlobalSvgSelector} from "../GlobalSvgSelector/GlobalSvgSelector";
 import {ThemeContext} from "../../context/ThemeContext";
@@ -30,29 +30,36 @@ export const Header = () => {
         }
         setDropdownVisible(true)
     }
-    const chooseLocationHandler = (location: any) => {
+    const chooseLocationHandler = useCallback((location: any) => {
         dispatch(fetchWeatherThunk(location))
-    }
-    useEffect(()=>{
+        setDropdownVisible(false)
+    }, [location])
+
+    useEffect(() => {
         dispatch(fetchWeatherThunk(location))
-    },[location])
+    }, [location])
 
     return (
         <div className={style.header}>
             <div className={style.halfWrapper}>
-                <div className={style.logo}><GlobalSvgSelector width={120} height={120} id={'header-logo'}/></div>
+                <div className={style.logo}>
+                    <GlobalSvgSelector width={120} height={120} id={'header-logo'}/>
+                </div>
                 <div className={style.title}>React weather</div>
             </div>
             <div className={style.halfWrapper}>
-                <div onClick={changeThemeHandler} className={style.changeTheme}><GlobalSvgSelector width={120}
-                                                                                                   height={120}
-                                                                                                   id={'theme'}/></div>
+                <div onClick={changeThemeHandler}
+                     className={style.changeTheme}>
+                    <GlobalSvgSelector width={120} height={120} id={'theme'}/>
+                </div>
                 <div className={style.select}>
-                    <input placeholder={'Введите название города'} className={style.select_input} value={locationName}
+                    <input placeholder={'Введите название города'}
+                           className={style.select_input}
+                           value={locationName}
                            onChange={(e) => setLocationName(e.target.value)}/>
                     {dropdownVisible && <ul className={style.select_dropdown}>
                         {options.map((el: any) =>
-                            <li onClick={() => chooseLocationHandler(el)}>
+                            <li key={el.name + el.state} onClick={() => chooseLocationHandler(el)}>
                                 <div>{el.name} </div>
                                 <div>{el.state}</div>
                             </li>)}

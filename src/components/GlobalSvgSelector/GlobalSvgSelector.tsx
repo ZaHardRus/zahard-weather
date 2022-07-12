@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import sun from '../../assets/images/sun.svg'
 import moon from '../../assets/images/moon.png'
 import few_clouds from '../../assets/images/few_clouds.png'
@@ -19,7 +19,7 @@ interface GlobalSvgSelectorProps{
     height:number
 }
 
-export const GlobalSvgSelector: React.FC<GlobalSvgSelectorProps> = ({id,width,height,...props}) => {
+export const GlobalSvgSelector: React.FC<GlobalSvgSelectorProps> = memo(({id,width,height,...props}) => {
     switch (id) {
         case 'header-logo':
             return <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -244,4 +244,4 @@ export const GlobalSvgSelector: React.FC<GlobalSvgSelectorProps> = ({id,width,he
         default:
             return null
     }
-}
+})

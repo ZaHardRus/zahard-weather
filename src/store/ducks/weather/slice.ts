@@ -40,6 +40,29 @@ export interface weatherDaily {
     "uvi": number
 }
 
+export interface IHourlyWeather {
+    "dt": number,
+    "temp": number,
+    "feels_like": number,
+    "pressure": number,
+    "humidity": number,
+    "dew_point": number,
+    "uvi": number,
+    "clouds": number,
+    "visibility": number,
+    "wind_speed": number,
+    "wind_deg": number,
+    "wind_gust": number,
+    "weather": [
+        {
+            "id": number,
+            "main": string,
+            "description": string,
+            "icon": string
+        }
+    ],
+    "pop": number
+}
 export interface weatherCurrent {
     dt: number
     sunrise: number
@@ -54,6 +77,7 @@ export interface weatherCurrent {
     visibility: number
     wind_speed: number
     wind_deg: number
+    hourly:Array<IHourlyWeather>
     "weather": [
         {
             "id": number,
@@ -64,14 +88,21 @@ export interface weatherCurrent {
     ],
 }
 
+export interface ILocation {
+    name: string,
+    lon: number,
+    lat: number,
+    state: string
+}
+
 export interface weatherState {
-    location: { name: string, lon: number, lat: number , state:string },
+    location: ILocation,
     daily: Array<weatherDaily>
     current: weatherCurrent
 }
 
 const initialState: weatherState = {
-    location: {name: "Москва", lat: 55.7504461, lon: 37.6174943, state:'Moscow'},
+    location: {name: "Москва", lat: 55.7504461, lon: 37.6174943, state: 'Moscow'},
     current: {} as weatherCurrent,
     daily: []
 }
@@ -88,9 +119,12 @@ export const weatherSlice = createSlice({
         },
         addCurrent(state, action: any) {
             state.current = action.payload
+        },
+        addCurrentHourly(state, action: any){
+            state.current.hourly = action.payload
         }
     },
 })
 
 export const {reducer: weatherReducer} = weatherSlice
-export const {chooseLocation, addDaily, addCurrent} = weatherSlice.actions
+export const {chooseLocation, addDaily, addCurrent,addCurrentHourly} = weatherSlice.actions
